@@ -13,7 +13,7 @@ const Card = ({ _id, name, prompt, photo }) => {
             <p className="card-text">{prompt}</p>
             <button
               type="button"
-              onClick={() => downloadImage(_id, photo)}
+              onClick={() => downloadImage(_id, photo.url)}
               className="btn ml-auto mt-auto"
             >
               <img
