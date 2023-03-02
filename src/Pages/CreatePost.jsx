@@ -32,16 +32,13 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch(
-          "https://ai-image-generator-server-zrph.onrender.com/api/v1/post",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-          }
-        );
+        const response = await fetch("https://ai-image-generator-server-zrph.onrender.com/api/v1/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
         await response.json();
         navigate("/");
       } catch (error) {
@@ -53,25 +50,26 @@ const CreatePost = () => {
       alert("Please enter a prompt to generate an image");
     }
   };
-
   const generateImage = async () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
         const response = await fetch(
-          "https://ai-image-generator-server-zrph.onrender.com/api/v1/dalle",
+          "https://ai-mern.onrender.com/api/v1/dalle",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ prompt: form.prompt }),
+            body: JSON.stringify({
+              prompt: form.prompt,
+            }),
           }
         );
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-      } catch (error) {
-        alert(error);
+      } catch (err) {
+        alert(err);
       } finally {
         setGeneratingImg(false);
       }
